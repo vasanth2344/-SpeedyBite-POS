@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing - Fast Food Billing System</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/back.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .bill-table {
+            width: 100%;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .bill-table th, .bill-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .bill-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-align: left;
+        }
+        .bill-total {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .continue-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; /* Light blue background color */
+    color: #fff; /* White text color */
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.continue-button:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Billing</h2>
+        <table class="bill-table">
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+            {% for item, quantity, price in items %}
+            <tr>
+                <td>{{ item }}</td>
+                <td>{{ quantity }}</td>
+                <td>{{ price }}</td>
+                <td>{{ quantity * price }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="bill-total">
+            Total: {{ total }}
+        </div>
+        <a href="payment.html" class="continue-button">payment</a>
+    </div>
+</body>
+</html>

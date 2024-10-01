@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Page</title>
+    <style>
+        /* Styling for the payment page */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #5e4033; /* Dark brown background */
+            color: white;
+        }
+
+        .overlay {
+            background-color: rgba(255, 255, 255, 0.8); /* Light overlay */
+            padding: 30px;
+            border-radius: 20px; /* Rounded corners */
+            text-align: center;
+            width: 420px; /* Box size */
+            transition: box-shadow 0.3s; /* Transition effect */
+            box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            font-size: 2em; /* Heading size */
+        }
+
+        .payment-option {
+            margin: 15px 0; /* Margin around options */
+            font-size: 1.2em; /* Text size */
+            cursor: pointer; /* Interactive cursor */
+            display: inline-block;
+            padding: 10px 20px; /* Padding */
+            border-radius: 10px; /* Rounded corners */
+            background-color: #c69c6d; /* Light brown */
+            transition: background-color 0.3s, transform 0.3s; /* Transition effects */
+        }
+
+        .payment-option:hover {
+            background-color: #d2a482; /* Lighter on hover */
+            transform: scale(1.05); /* Slight scale on hover */
+        }
+
+        .payment-form {
+            display: none; /* Hidden by default */
+            transition: all 0.5s; /* Transition effect */
+        }
+
+        .payment-form input {
+            width: 90%; /* Full width */
+            padding: 10px; /* Padding */
+            margin: 10px 0; /* Margin */
+            border: 1px solid #5e4033; /* Dark brown border */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 1em;
+            color: #5e4033;
+        }
+
+        .error-message {
+            color: red; /* Error message color */
+            font-size: 0.9em; /* Smaller font size */
+            display: none; /* Hidden by default */
+        }
+
+        .proceed-btn {
+            padding: 10px 20px; /* Padding */
+            font-size: 1.2em; /* Text size */
+            background-color: #c69c6d; /* Light brown */
+            border: none;
+            border-radius: 10px; /* Rounded corners */
+            cursor: pointer; /* Interactive cursor */
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .proceed-btn:hover {
+            background-color: #d2a482; /* Lighter on hover */
+            transform: scale(1.05);
+        }
+
+        .back-arrow {
+            position: absolute; /* Absolute positioning */
+            top: 10px; /* Offset from top */
+            left: 10px; /* Offset from left */
+            color: white;
+            font-size: 1.5em; /* Arrow size */
+            cursor: pointer; /* Interactive cursor */
+            text-decoration: none; /* No underline */
+        }
+    </style>
+
+    <script>
+        function showPaymentForm(paymentMethod) {
+            document.getElementById("payment-options").style.display = "none"; /* Hide payment options */
+            document.getElementById("form-section").style.display = "block"; /* Show form section */
+
+            if (paymentMethod === "upi") {
+                document.getElementById("upi-form").style.display = "block"; /* Show UPI form */
+                document.getElementById("card-form").style.display = "none"; /* Hide card form */
+            } else if (paymentMethod === "card") {
+                document.getElementById("card-form").style.display = "block"; /* Show card form */
+                document.getElementById("upi-form").style.display = "none"; /* Hide UPI form */
+            } else {
+                confirmPayment(); /* If cash, proceed to thank you page */
+            }
+        }
+
+        function validateUPI() {
+            const upiId = document.getElementById("upi-id").value;
+            const proceedButton = document.getElementById("proceed-btn-upi");
+            const errorMessage = document.getElementById("error-message-upi");
+
+            if (!upiId) {
+                errorMessage.style.display = "block"; /* Show error message */
+                proceedButton.disabled = true; /* Disable proceed button */
+            } else {
+                errorMessage.style.display = "none"; /* Hide error */
+                proceedButton.disabled = false; /* Enable proceed button */
+            }
+        }
+
+        function validateCard() {
+            const cardNumber = document.getElementById("card-number").value;
+            const cardHolder = document.getElementById("card-holder").value;
+            const expirationDate = document.getElementById("expiration-date").value;
+            const cvv = document.getElementById("cvv").value;
+            const errorMessage = document.getElementById("error-message-card");
+            const proceedButton = document.getElementById("proceed-btn-card");
+
+            if (!cardNumber || !cardHolder || !expirationDate || !cvv) {
+                errorMessage.style.display = "block"; /* Show error message */
+                proceedButton.disabled = true; /* Disable proceed button */
+            } else {
+                errorMessage.style.display = "none"; /* Hide error */
+                proceedButton.disabled = false; /* Enable proceed button */
+            }
+        }
+
+        function confirmPayment() {
+            window.location.href = "thankyou.html"; /* Redirect to thankyou.html */
+        }
+
+        function goBack() {
+            document.getElementById("form-section").style.display = "none"; /* Hide form section */
+            document.getElementById("payment-options").style.display = "block"; /* Show payment options */
+        }
+    </script>
+</head>
+
+<body>
+    <a class="back-arrow" onclick="goBack()">←</a> <!-- Back arrow for navigation -->
+    
+    <div class="overlay"> <!-- Main container -->
+        <div id="payment-options">
+            <h2>Payment Methods</h2>
+            <div class="payment-option" onclick="showPaymentForm('upi')">UPI</div>
+            <div class="payment-option" onclick="showPaymentForm('card')">Credit/Debit Card</div>
+            <div class="payment-option" onclick="showPaymentForm('cash')">Cash</div>
+        </div>
+        
+        <div id="form-section" style="display: none;"> <!-- Form section, initially hidden -->
+            <!-- UPI Form -->
+            <div id="upi-form" class="payment-form" style="display: none;">
+                <h3>Enter UPI ID</h3>
+                <input type="text" id="upi-id" placeholder="Enter your UPI ID" oninput="validateUPI()">
+                <div class="error-message" id="error-message-upi">Please enter a valid UPI ID</div>
+                <button class="proceed-btn" id="proceed-btn-upi" onclick="confirmPayment()" disabled>Confirm Payment</button>
+            </div>
+
+            <!-- Credit/Debit Card Form -->
+            <div id="card-form" class="payment-form" style="display: none;">
+                <h3>Enter Card Details</h3>
+                <input type="text" id="card-number" placeholder="Card Number" oninput="validateCard()">
+                <input type="text" id="card-holder" placeholder="Card Holder Name" oninput="validateCard()">
+                <input type="text" id="expiration-date" placeholder="Expiration Date (MM/YY)" oninput="validateCard()">
+                <input type="password" id="cvv" placeholder="CVV (3-digit)" oninput="validateCard()">
+                <div class="error-message" id="error-message-card">Please fill all card details</div>
+                <button class="proceed-btn" id="proceed-btn-card" onclick="confirmPayment()" disabled>Confirm Payment</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

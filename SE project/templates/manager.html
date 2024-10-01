@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager - Fast Food Billing System</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/back.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .manager-table {
+            width: 100%;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .manager-table th, .manager-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .manager-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Manager Dashboard</h2>
+        <table class="manager-table">
+            <tr>
+                <th>Username</th>
+                <th>Payment Status</th>
+            </tr>
+            <!-- Loop through the usernames and set payment status to "yes" -->
+            {% for username in usernames %}
+            <tr>
+                <td>{{ username }}</td>
+                <td>Yes</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast Food Billing System</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/de.jpg'); /* Changed background image */
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        /* Welcome Page Styles */
+        .welcome-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .welcome-text {
+            margin-bottom: 20px;
+            color: #fff; /* White text color for better visibility */
+        }
+        /* Button Styles */
+        .button {
+            padding: 10px 20px;
+            background-color: #ff6347;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Page -->
+    <div class="container welcome-container">
+        <h1 class="welcome-text">Welcome to the Fast Food Billing System</h1>
+        <button class="button" onclick="window.location.href='login'">Get Started</button>
+
+    </div>
+</body>
+</html>

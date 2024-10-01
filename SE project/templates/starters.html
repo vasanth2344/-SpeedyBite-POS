@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appetizers</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/app.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff; /* Text color */
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 40px;
+        }
+        .menu-item {
+            display: inline-block;
+            width: 200px;
+            margin: 20px;
+            position: relative;
+        }
+        .menu-image {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .menu-title {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            padding: 5px;
+            border-radius: 0 0 10px 10px;
+        }
+        .menu-title p {
+            margin: 0;
+            font-size: 16px;
+            color: #fff; /* White text color */
+        }
+        .price {
+            color: #fff;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .quantity-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .quantity-controls button {
+            background-color: #ff6347;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .quantity-controls button:hover {
+            background-color: #e74c3c;
+        }
+        /* Cart Styles */
+        .cart-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #ff6347;
+            color: #fff;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .cart-icon:hover {
+            background-color: #e74c3c;
+        }
+        .cart-items {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            display: none;
+            max-width: 200px;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+        .cart-items p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Appetizers</h2>
+        <div class="menu-item">
+            <img src="/static/chicken_manchow_soup.jpg" alt="Chicken Manchow Soup" class="menu-image">
+            <div class="menu-title">
+                <p>Chicken Manchow Soup</p>
+                <div class="price">₹199</div> <!-- Price -->
+                <div class="quantity-controls">
+                    <button onclick="decrementQuantity(this)">-</button>
+                    <span class="quantity">0</span> <!-- Initial quantity -->
+                    <button onclick="incrementQuantity(this)">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="/static/sweet_corn_soup.jpg" alt="Sweet Corn Soup" class="menu-image">
+            <div class="menu-title">
+                <p>Sweet Corn Soup</p>
+                <div class="price">₹169</div>
+                <div class="quantity-controls">
+                    <button onclick="decrementQuantity(this)">-</button>
+                    <span class="quantity">0</span>
+                    <button onclick="incrementQuantity(this)">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="/static/tomato_soup.jpg" alt="Tomato Soup" class="menu-image">
+            <div class="menu-title">
+                <p>Tomato Soup</p>
+                <div class="price">₹169</div>
+                <div class="quantity-controls">
+                    <button onclick="decrementQuantity(this)">-</button>
+                    <span class="quantity">0</span>
+                    <button onclick="incrementQuantity(this)">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="/static/chilli_chicken.jpg" alt="Chilli Chicken" class="menu-image">
+            <div class="menu-title">
+                <p>Chilli Chicken</p>
+                <div class="price">₹200</div>
+                <div class="quantity-controls">
+                    <button onclick="decrementQuantity(this)">-</button>
+                    <span class="quantity">0</span>
+                    <button onclick="incrementQuantity(this)">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="/static/chicken_manchuria.jpg" alt="Chicken Manchuria" class="menu-image">
+            <div class="menu-title">
+                <p>Chicken Manchuria</p>
+                <div class="price">₹150</div>
+                <div class="quantity-controls">
+                    <button onclick="decrementQuantity(this)">-</button>
+                    <span class="quantity">0</span>
+                    <button onclick="incrementQuantity(this)">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="/static/chicken_65.jpg" alt="Chicken 65" class="menu-image">
+            <div class="menu-title">
+                <p>Chicken 65</p>
+                <div class="price">₹210</div>
+                <div class="quantity-controls">
+                    <button onclick="decrementQuantity(this)">-</button>
+                    <span class="quantity">0</span>
+                    <button onclick="incrementQuantity(this)">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="/static/panner_tikka.jpg" alt="Panner Tikka" class="menu-image">
+            <div class="menu-title">
+                <p>Panner Tikka</p>
+                <div class="price">₹169</div>
+                <div class="quantity-controls">
+                    <button onclick="decrementQuantity(this)">-</button>
+                    <span class="quantity">0</span>
+                    <button onclick="incrementQuantity(this)">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="/static/veg_manchuria.jpg" alt="Veg Manchuria" class="menu-image">
+            <div class="menu-title">
+                <p>Veg Manchuria</p>
+                <div class="price">₹99</div>
+                <div class="quantity-controls">
+                    <button onclick="decrementQuantity(this)">-</button>
+                    <span class="quantity">0</span>
+                    <button onclick="incrementQuantity(this)">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="/static/spring_rolls.jpg" alt="Spring Rolls" class="menu-image">
+            <div class="menu-title">
+                <p>Spring Rolls</p>
+                <div class="price">₹170</div>
+                <div class="quantity-controls">
+                    <button onclick="decrementQuantity(this)">-</button>
+                    <span class="quantity">0</span>
+                    <button onclick="incrementQuantity(this)">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cart Icon -->
+    <div class="cart-icon" onclick="toggleCart()">Cart</div>
+
+    <!-- Cart Items -->
+    <div class="cart-items" id="cartItems">
+        <!-- Cart items will be displayed here -->
+    </div>
+
+    <script>
+        // Cart object to store selected items
+        var cart = {};
+
+        // Function to toggle cart visibility
+        function toggleCart() {
+            var cartItems = document.getElementById('cartItems');
+            cartItems.style.display = cartItems.style.display === 'block' ? 'none' : 'block';
+            updateCartDisplay();
+        }
+
+        // Function to add item to cart
+        function addItemToCart(itemName) {
+            if (cart[itemName]) {
+                cart[itemName]++;
+            } else {
+                cart[itemName] = 1;
+            }
+            updateCartDisplay();
+
+            // Send cart data to server
+            sendCartDataToServer();
+        }
+
+        // Function to remove item from cart
+        function removeItemFromCart(itemName) {
+            if (cart[itemName]) {
+                cart[itemName]--;
+                if (cart[itemName] === 0) {
+                    delete cart[itemName];
+                }
+            }
+            updateCartDisplay();
+
+            // Send cart data to server
+            sendCartDataToServer();
+        }
+
+        // Function to update cart display
+        function updateCartDisplay() {
+            var cartItems = document.getElementById('cartItems');
+            cartItems.innerHTML = ''; // Clear previous items
+
+            // Add items to cart display
+            for (var itemName in cart) {
+                var itemQuantity = cart[itemName];
+                var itemElement = document.createElement('p');
+                itemElement.textContent = itemName + ': ' + itemQuantity;
+                cartItems.appendChild(itemElement);
+            }
+        }
+
+        // Function to increment quantity
+        function incrementQuantity(button) {
+            var quantityElement = button.parentNode.querySelector('.quantity');
+            var quantity = parseInt(quantityElement.textContent);
+            quantity++;
+            quantityElement.textContent = quantity;
+            addItemToCart(button.parentNode.parentNode.querySelector('p').textContent);
+        }
+
+        // Function to decrement quantity
+        function decrementQuantity(button) {
+            var quantityElement = button.parentNode.querySelector('.quantity');
+            var quantity = parseInt(quantityElement.textContent);
+            if (quantity > 0) {
+                quantity--;
+                quantityElement.textContent = quantity;
+                removeItemFromCart(button.parentNode.parentNode.querySelector('p').textContent);
+            }
+        }
+
+        // Function to send cart data to server
+        function sendCartDataToServer() {
+            fetch('/add_to_cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: '{{ session["username"] }}', // Updated syntax
+                    items: cart,
+                }),
+            })
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
